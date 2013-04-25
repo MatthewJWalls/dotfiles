@@ -74,9 +74,19 @@
   kept-old-versions 5    ; and how many of the old
 )
 
-;; spaces instead of tabls
+;; spaces instead of tabs
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
+;; this will make c-k kill a region if available, else kill line
+
+(defun kill-line-or-region (beg end) 
+ "kill region if active only or kill line normally"
+  (interactive "r")
+  (if (region-active-p)
+      (call-interactively 'kill-region)
+    (call-interactively 'kill-line)))
+
+  (global-set-key (kbd "C-k") 'kill-line-or-region)
