@@ -10,3 +10,5 @@
     email = codered1200@googlemail.com
 [color]
     ui = true
+[push]
+	default = simple
