@@ -64,11 +64,6 @@ fi
 alias l='ls -CF'
 alias ls='ls --color=always --group-directories-first'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -82,17 +77,30 @@ fi
 
 # ----------- MJW - My additions --------------------------------------
 
-export EDITOR='emacs -nw'
+# emacs stuff
+
+if [[ $( which emacs24 ) == "" ]]; then
+    export EDITOR='emacs -nw'
+    alias e='emacs -nw'
+else
+    export EDITOR='emacs24 -nw'
+    alias e='emacs24 -nw'
+end
+
+# exports
+
 export PATH=$PATH:~/util/;                                           # I can put my scripts here
 export GOPATH=~/code/go/;
+
+# aliases
 
 alias l='ls -lrth --color=always --group-directories-first';         # my preferred default ls
 alias lw='ls';                                                       # common typo I make
 alias cs='cd';                                                       # common typo I make
 alias c='clear';                                                     # I use clear a LOT
-alias e='emacs -nw';                                                 # emacs binding
 alias clean='rm -f *~; rm -f \#*; rm -f *.pyc';                      # removes temporary files
-alias sublime='/home/rhizome/Downloads/sublimeText2/sublime_text &'; # run sublime text
+
+# functions
 
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
@@ -139,7 +147,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-# booshies stuff
-
-. ~/code/booshies/bs/.booshies
