@@ -39,10 +39,8 @@
 
 ;; misc modes
 (add-to-list 'load-path "~/emacsmodes/")
-(load "csharp-mode-0.8.5")
 
 (load "go-mode.el")
-(load "php-mode.el")
 
 ;; simplified dired
 
