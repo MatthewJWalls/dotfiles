@@ -85,7 +85,7 @@ if [[ $( which emacs24 ) == "" ]]; then
 else
     export EDITOR='emacs24 -nw'
     alias e='emacs24 -nw'
-end
+fi
 
 # exports
 
