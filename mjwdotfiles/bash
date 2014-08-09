@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# history
+
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# emacs stuff
+
+if [[ $( which emacs24 ) == "" ]]; then
+    export EDITOR='emacs -nw'
+    alias e='emacs -nw'
+else
+    export EDITOR='emacs24 -nw'
+    alias e='emacs24 -nw'
+fi
+
+# aliases
+
+alias l='ls -lrth --color=always --group-directories-first';         # my preferred default ls
+alias lw='ls';                                                       # common typo I make
+alias cs='cd';                                                       # common typo I make
+alias c='clear';                                                     # I use clear a LOT
+alias clean='rm -f *~; rm -f \#*; rm -f *.pyc';                      # removes temporary files
+
+# functions
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+function extract(){
+
+     if [ -f $1 ] ; then
+         case $1 in
+             *.tar.bz2)   tar xvjf $1     ;;
+             *.tar.gz)    tar xvzf $1     ;;
+             *.bz2)       bunzip2 $1      ;;
+             *.rar)       unrar x $1      ;;
+             *.gz)        gunzip $1       ;;
+             *.tar)       tar xvf $1      ;;
+             *.tbz2)      tar xvjf $1     ;;
+             *.tgz)       tar xvzf $1     ;;
+             *.zip)       unzip $1        ;;
+             *.Z)         uncompress $1   ;;
+             *.7z)        7z x $1         ;;
+             *)           echo "'$1' cannot be extracted via >extract<" ;;
+         esac
+     else
+         echo "'$1' is not a valid file"
+     fi
+}
+
+function clean(){
+    rm -f *.pyc &> /dev/null
+    rm -f *~ &> /dev/null
+}
+
+# prompt
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
+    PS1="$PS1\$(parse_git_branch) $ "
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+
+unset color_prompt force_color_prompt
+
+# path
+export GOPATH=$HOME/code/go
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$GOPATH/bin
