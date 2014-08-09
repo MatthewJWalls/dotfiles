@@ -1,11 +1,15 @@
 #!/bin/bash
 
+# Don't tell me I've got mail
+unset MAILCHECK
+
 # history
 
 HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=10000
+HISTCONTROL=ignoreboth
 
-# emacs stuff
+# editor
 
 if [[ $( which emacs24 ) == "" ]]; then
     export EDITOR='emacs -nw'
@@ -15,13 +19,18 @@ else
     alias e='emacs24 -nw'
 fi
 
+# pager
+
+PAGER="less -FirSwX"
+MANPAGER="$PAGER"
+export PAGER MANPAGER
+
 # aliases
 
 alias l='ls -lrth --color=always --group-directories-first';         # my preferred default ls
 alias lw='ls';                                                       # common typo I make
 alias cs='cd';                                                       # common typo I make
-alias c='clear';                                                     # I use clear a LOT
-alias clean='rm -f *~; rm -f \#*; rm -f *.pyc';                      # removes temporary files
+alias more=less                                                      # less is more
 
 # functions
 
@@ -54,20 +63,43 @@ function extract(){
 function clean(){
     rm -f *.pyc &> /dev/null
     rm -f *~ &> /dev/null
+    rm -f \#*
 }
 
 # prompt
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
-    PS1="$PS1\$(parse_git_branch) $ "
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
+# prompt                                                                                                                                       
 
-unset color_prompt force_color_prompt
+RED="\[\033[0;31m\]"
+BROWN="\[\033[0;33m\]"
+GREY="\[\033[0;97m\]"
+GREEN="\[\033[0;32m\]"
+BLUE="\[\033[0;34m\]"
+PS_CLEAR="\[\033[0m\]"
+SCREEN_ESC="\[\033k\033\134\]"
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+function prompt_normal() {
+    # name@system:~/my/path $
+    # name@system:~/my/path (master) $
+    export PS1="${debian_chroot:+($debian_chroot)}\u@$GREEN\h$PS_CLEAR:\w"
+    export PS1="$PS1$BLUE\$(parse_git_branch)$PS_CLEAR \$ "
+}
+
+function prompt_compact() {
+    # system:~/my/path $
+    # system:~/my/path (master) $
+    export PS1="$GREEN\h$PS_CLEAR:\w"
+    export PS1="$PS1$BLUE\$(parse_git_branch)$PS_CLEAR \$ "
+}
+
+prompt_normal
 
 # path
+
 export GOPATH=$HOME/code/go
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$GOPATH/bin
