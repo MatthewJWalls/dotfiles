@@ -27,10 +27,11 @@ export PAGER MANPAGER
 
 # aliases
 
-alias l='ls -lrth --color=always --group-directories-first';         # my preferred default ls
-alias lw='ls';                                                       # common typo I make
-alias cs='cd';                                                       # common typo I make
-alias more=less                                                      # less is more
+alias l='ls -lrth --color=always --group-directories-first';
+alias ls='ls --color=always --group-directories-first';
+alias lw='ls';
+alias cs='cd';
+alias more=less
 
 # functions
 
