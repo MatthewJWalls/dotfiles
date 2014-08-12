@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ~/.mjwdotfiles/colors
+
 # Don't tell me I've got mail
 unset MAILCHECK
 
@@ -68,16 +70,6 @@ function clean(){
 }
 
 # prompt
-
-# prompt                                                                                                                                       
-
-RED="\[\033[0;31m\]"
-BROWN="\[\033[0;33m\]"
-GREY="\[\033[0;97m\]"
-GREEN="\[\033[0;32m\]"
-BLUE="\[\033[0;34m\]"
-PS_CLEAR="\[\033[0m\]"
-SCREEN_ESC="\[\033k\033\134\]"
 
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
