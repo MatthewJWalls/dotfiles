@@ -79,7 +79,7 @@ function prompt_normal() {
     # name@system:~/my/path $
     # name@system:~/my/path (master) $
     export PS1="${debian_chroot:+($debian_chroot)}\u@$GREEN\h$PS_CLEAR:\w"
-    export PS1="$PS1$CYAN\$(parse_git_branch)$PS_CLEAR \$ "
+    export PS1="$PS1$CYAN\$(parse_git_branch) $YELLOW\$ $PS_CLEAR"
 }
 
 function prompt_compact() {
