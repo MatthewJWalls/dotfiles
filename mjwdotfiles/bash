@@ -89,6 +89,23 @@ function prompt_compact() {
     export PS1="$PS1$CYAN\$(parse_git_branch)$PS_CLEAR \$ "
 }
 
+function gradle-init() {
+    # Creates an outline gradle file
+    local name=$1
+    
+    mkdir $name
+    mkdir $name/src
+    mkdir $name/src/main
+    mkdir $name/src/main/java
+    mkdir $name/src/main/resources
+    mkdir $name/src/test
+    mkdir $name/src/test/java
+    mkdir $name/src/test/resources
+    
+    echo "apply plugin: 'java'" > $name/build.gradle
+
+}
+
 prompt_normal
 
 # path
