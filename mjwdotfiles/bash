@@ -13,7 +13,9 @@ HISTCONTROL=ignoreboth
 
 # editor
 
-if [[ $( which emacs24 ) == "" ]]; then
+which emacs24 &> /dev/null
+
+if [[ "$?" != "0" ]]; then
     export EDITOR='emacs -nw'
     alias e='emacs -nw'
 else
