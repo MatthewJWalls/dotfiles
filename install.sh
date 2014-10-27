@@ -29,3 +29,5 @@ if [[ "$(grep mjwdotfiles ~/.bashrc)" == "" ]]; then
     echo "updating .bashrc"
     echo "source $BASE/bash" >> ~/.bashrc
 fi
+
+
