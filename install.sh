@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# Installs Dotfiles
+#
+
 BASE=$HOME/.mjwdotfiles
 
 rm -rf $BASE
