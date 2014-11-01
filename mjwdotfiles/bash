@@ -43,6 +43,10 @@ function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
+function compress() {
+    tar -zcvf $(echo $1 | cut -d"." -f1).tar.gz $1
+}
+
 function extract(){
 
      if [ -f $1 ] ; then
@@ -108,3 +112,7 @@ prompt_normal
 export GOPATH=$HOME/code/go
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$GOPATH/bin
+
+echo
+cat ~/.mjwdotfiles/banner
+echo
