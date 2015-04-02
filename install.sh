@@ -4,6 +4,13 @@
 # Installs Dotfiles
 #
 
+# prechecks
+
+echo -ne "Git username: "
+read gituser
+echo -ne "Git email: "
+read gitemail
+
 BASE=$HOME/.mjwdotfiles
 
 rm -rf $BASE
@@ -22,6 +29,11 @@ for file in mjwdotfiles/*; do
     echo "moving $file to $BASE."
     cp $file $BASE/
 done
+
+# update git credentials
+
+sed -i "s/GITNAME/$gituser/" ~/.gitconfig
+sed -i "s/GITEMAIL/$gitemail/" ~/.gitconfig
 
 # tell .bashrc to source my bash
 

@@ -6,8 +6,8 @@
     pom = push origin master
     l = "!bash -c 'source ~/.mjwdotfiles/githelpers && pretty_git_log'"
 [user]
-    name = MatthewJWalls
-    email = codered1200@googlemail.com
+    name = GITNAME
+    email = GITEMAIL
 [color]
     ui = true
 [push]
