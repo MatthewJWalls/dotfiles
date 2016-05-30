@@ -23,6 +23,11 @@ for file in home/*; do
     cp $file $HOME/.$(basename $file)
 done
 
+# move out themes
+
+mkdir -p ~/.emacs.d/themes
+cp themes/* ~/.emacs.d/themes
+
 # move out the subfiles
 
 for file in mjwdotfiles/*; do
