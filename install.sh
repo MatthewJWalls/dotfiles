@@ -1,8 +1,6 @@
 #!/bin/bash
 
-#
-# Installs Dotfiles
-#
+# -- Installs Dotfiles --
 
 # prechecks
 
